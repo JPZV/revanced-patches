@@ -3,7 +3,7 @@ package app.revanced.patches.vsco.misc.pro.patch
 import app.revanced.extensions.toErrorResult
 import app.revanced.patcher.annotation.*
 import app.revanced.patcher.data.BytecodeContext
-import app.revanced.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
+import app.revanced.patcher.extensions.InstructionExtensions.addInstruction
 import app.revanced.patcher.patch.BytecodePatch
 import app.revanced.patcher.patch.PatchResult
 import app.revanced.patcher.patch.PatchResultSuccess
@@ -12,7 +12,7 @@ import app.revanced.patches.vsco.misc.pro.fingerprints.RevCatSubscriptionFingerp
 
 
 @Patch
-@Name("unlock-pro")
+@Name("Unlock pro")
 @Description("Unlocks pro features.")
 @Compatibility([Package("com.vsco.cam")])
 @Version("0.0.1")
@@ -22,7 +22,7 @@ class UnlockProPatch : BytecodePatch(
     override fun execute(context: BytecodeContext): PatchResult {
         RevCatSubscriptionFingerprint.result?.mutableMethod?.apply {
             // Set isSubscribed to true.
-            addInstructionsWithLabels(
+            addInstruction(
                 0,
                 """
                     const p1, 0x1

@@ -29,10 +29,11 @@ import app.revanced.patches.twitch.misc.settings.fingerprints.SettingsMenuItemEn
 import app.revanced.patches.twitch.misc.settings.resource.patch.SettingsResourcePatch
 import org.jf.dexlib2.AccessFlags
 import org.jf.dexlib2.immutable.ImmutableField
+import java.io.Closeable
 
 @Patch
 @DependsOn([IntegrationsPatch::class, SettingsResourcePatch::class])
-@Name("settings")
+@Name("Settings")
 @Description("Adds settings menu to Twitch.")
 @SettingsCompatibility
 @Version("0.0.1")
@@ -43,7 +44,7 @@ class SettingsPatch : BytecodePatch(
         MenuGroupsUpdatedFingerprint,
         MenuGroupsOnClickFingerprint
     )
-) {
+), Closeable {
     override fun execute(context: BytecodeContext): PatchResult {
         // Hook onCreate to handle fragment creation
         SettingsActivityOnCreateFingerprint.result?.apply {
